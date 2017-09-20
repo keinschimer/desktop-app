@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+  </script>
+</head>
+
+<body>
+  <h1>Hello World</h1>
+</body>
+<script>
+  const {
+    dialog
+  } = require('electron').remote
+
+  console.log(dialog.showOpenDialog({
+    title: 'Pick Something',
+    properties: ['openDirectory', 'promtToCreate'], // on Windows/Linux only one {openFile, openDirectory} cannot be both
+    buttonLabel: 'Cunt'
+  }))
+
+  // require('./renderer.js')
+</script>
+
+</html>
