@@ -4,24 +4,82 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <link rel="stylesheet" href="https://bootswatch.com/simplex/bootstrap.min.css">
   <script>
   </script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2
+    }
+
+    tr:hover {
+      background-color: #AAA
+    }
+
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Hello World</h1>
+  <button type="button" id="openDialog">Open</button>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+    <tbody id="table">
+
+    </tbody>
+  </table>
 </body>
 <script>
+  const fs = require('fs');
   const {
     dialog
   } = require('electron').remote
+  var myDir
 
-  console.log(dialog.showOpenDialog({
-    title: 'Pick Something',
-    properties: ['openDirectory', 'promtToCreate'], // on Windows/Linux only one {openFile, openDirectory} cannot be both
-    buttonLabel: 'Cunt'
-  }))
+  openDialog.addEventListener('click', () => {
+    myDir = dialog.showOpenDialog({
+      title: 'Pick Something',
+      properties: [
+        //'openFile',     // on Windows/Linux only one
+        'openDirectory', // cannot be both
+        'promtToCreate',
+        'multiSelections'
+      ],
+      buttonLabel: 'Cunt'
+    })
+    for (var i = 0; i < myDir.length; i++) {
+      fs.readdir(myDir[i], (err, dir) => {
+        console.log(dir);
+        for (var i = 0, path; path = dir[i]; i++) {
+          console.log(path);
+          let output = '<tr><td>'+path+'</td><td>~rating~<td></tr>'
+          document.getElementById('table').innerHTML += output
+        }
+      });
+    }
 
+    console.log()
+  })
   // require('./renderer.js')
 </script>
 
