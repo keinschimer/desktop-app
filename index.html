@@ -39,48 +39,21 @@
   <button type="button" id="openDialog">Open</button>
   <table>
     <thead>
-    <tr>
-      <th>Name</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
+      <tr>
+        <th>Name</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
     <tbody id="table">
-
+      <tr>
+        <td>Title</td>
+        <td class="rating">-</td>
+      </tr>
     </tbody>
   </table>
 </body>
 <script>
-  const fs = require('fs');
-  const {
-    dialog
-  } = require('electron').remote
-  var myDir
-
-  openDialog.addEventListener('click', () => {
-    myDir = dialog.showOpenDialog({
-      title: 'Pick Something',
-      properties: [
-        //'openFile',     // on Windows/Linux only one
-        'openDirectory', // cannot be both
-        'promtToCreate',
-        'multiSelections'
-      ],
-      buttonLabel: 'Cunt'
-    })
-    for (var i = 0; i < myDir.length; i++) {
-      fs.readdir(myDir[i], (err, dir) => {
-        console.log(dir);
-        for (var i = 0, path; path = dir[i]; i++) {
-          console.log(path);
-          let output = '<tr><td>'+path+'</td><td>~rating~<td></tr>'
-          document.getElementById('table').innerHTML += output
-        }
-      });
-    }
-
-    console.log()
-  })
-  // require('./renderer.js')
+  require('./renderer.js')
 </script>
 
 </html>
