@@ -1,6 +1,17 @@
 const fs = require('fs');
-const {dialog} = require('electron').remote
+const {
+  dialog
+} = require('electron').remote
 var myDir
+
+function the_Plan() {
+  openFilePicker()
+  // setTimeout(pls_Work(),3000);
+  setTimeout(function() {
+    // alert("Hello");
+    pls_Work();
+  }, 2); // I dont know why but I need to set a timeout here, at min. 2, 1 isn't working.
+}
 
 function openFilePicker() {
   myDir = dialog.showOpenDialog({
@@ -19,24 +30,28 @@ function openFilePicker() {
         console.log(dir);
         for (var i = 0, path; path = dir[i]; i++) {
           console.log(path);
-          let output = '<tr><td>' + path + '</td><td class="rating">-</td></tr>'
+          let output = '<tr><td>' + path + '<td class="score"><select class="rating"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></td>'
           document.getElementById('table').innerHTML += output
         }
       });
     }
-    var rating = document.getElementsByClassName('rating')
-    console.log(rating);
-    for (var i = 0; i < rating.length; i++) {
-      rating[i].onclick = onClickFunction;
-      }
-      console.log(i);
-    }
+    // var rating = document.getElementsByClassName('rating')
   }
-  console.log(rating);
+  // console.log(rating)
 }
 
 function onClickFunction() {
   alert()
 }
 
-openDialog.addEventListener('click', openFilePicker)
+function pls_Work() {
+  // console.log(document.getElementsByClassName('rating').length);
+  for (var i = 0; i < document.getElementsByClassName('rating').length; i++) {
+    document.getElementsByClassName('rating')[i].onclick = onClickFunction;
+    console.log(i);
+  }
+}
+
+// openDialog.addEventListener('click', openFilePicker)
+// plsWork.addEventListener('click', pls_Work)
+test.addEventListener('click', the_Plan)

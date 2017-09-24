@@ -32,22 +32,41 @@
       background-color: #4CAF50;
       color: white;
     }
+
+    .score {
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
-  <button type="button" id="openDialog">Open</button>
+  <button type="button" id="test">Open</button>
+  <!-- <button type="button" id="openDialog">Open</button> -->
+  <!-- <button type="button"id="plsWork">WORK</button> -->
   <table>
     <thead>
       <tr>
         <th>Name</th>
-        <th>Rating</th>
+        <th class="score">Score</th>
       </tr>
     </thead>
     <tbody id="table">
       <tr>
         <td>Title</td>
-        <td class="rating">-</td>
+        <td class="score">
+          <select class="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </td>
       </tr>
     </tbody>
   </table>
