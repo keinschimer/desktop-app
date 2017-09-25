@@ -3,6 +3,14 @@ const {
   dialog
 } = require('electron').remote
 var myDir
+const Datastore = require('nedb');
+
+var db = new Datastore({ filename: './file.db', autoload: true })
+var testUsers = {
+  name: 'Eckelmann',
+  vorname: 'Max',
+  age: '17'
+}
 
 function the_Plan() {
   openFilePicker()
@@ -41,7 +49,7 @@ function openFilePicker() {
 }
 
 function onClickFunction() {
-  alert()
+
 }
 
 function pls_Work() {
@@ -52,6 +60,19 @@ function pls_Work() {
   }
 }
 
+function saveDB() {
+ db.insert(testUsers, function (err, doc) {
+   console.log('Inserted', doc.name, 'with ID', doc._id);
+ })
+
+}
+
+function loadDB() {
+
+}
+
 // openDialog.addEventListener('click', openFilePicker)
 // plsWork.addEventListener('click', pls_Work)
 test.addEventListener('click', the_Plan)
+saveBtn.addEventListener('click', saveDB)
+loadBtn.addEventListener('click', loadDB)

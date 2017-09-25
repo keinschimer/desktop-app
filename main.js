@@ -15,6 +15,11 @@ function createWindow() {
   mainWindow.on('closed', function() {
     mainWindow = null
   })
+  db.insert(testUsers, function (err, doc) {
+    console.log(testUsers);
+    console.log('Inserted', doc.name, ' with ID', doc._id);
+  })
+
 }
 
 app.on('ready', () => {
