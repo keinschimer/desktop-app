@@ -42,16 +42,16 @@
 <body>
   <button type="button" id="loadBtn">Load</button>
   <button type="button" id="saveBtn">Save</button>
-  <button type="button" id="test">Open</button>
+  <button type="button" id="openBtn">Open</button>
   <!-- <button type="button" id="openDialog">Open</button> -->
   <!-- <button type="button"id="plsWork">WORK</button> -->
   <table>
     <thead>
       <tr>
         <th>Name</th>
-        <th class="score">Score</th>
-        <!-- <th class="status">Status</th>
-        <th class="more">More</th> -->
+        <th>Score</th>
+        <th>Status</th>
+        <th>More</th>
       </tr>
     </thead>
     <tbody id="table">
@@ -71,18 +71,19 @@
             <option value="10">10</option>
           </select>
         </td>
-        <!-- <td><select class="status">
+        <td><select class="status">
           <option value="">Finished</option>
           <option value="">Watching</option>
           <option value="">Plan to Watch</option>
         </select></td>
-        <td class="more"><textarea rows="1" cols="10"></textarea></td> -->
+        <td class="more"><textarea rows="1" cols="10"></textarea></td>
       </tr>
     </tbody>
   </table>
 </body>
 <script>
   require('./renderer.js')
+  require('./files.js')
 </script>
 
 </html>
