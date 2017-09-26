@@ -1,4 +1,5 @@
-function Item() {
+module.exports = {
+Item: function(path, name, score, status, more) {
   this.path = path;
   this.name = name;
   this.score = score;
@@ -20,4 +21,5 @@ function Item() {
   this.addMore = function (more) {
     this.more = more;
   }
+}
 }

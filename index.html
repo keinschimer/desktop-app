@@ -29,12 +29,13 @@
 
 
     th {
+      border-right: 1px #468847 solid;
       background-color: #4CAF50;
       color: white;
     }
 
-    .score {
-      text-align: center;
+    .tdpath{
+      display: none;
     }
   </style>
 </head>
@@ -48,16 +49,17 @@
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Score</th>
-        <th>Status</th>
-        <th>More</th>
+        <th class="tdtitle">Name</th>
+        <th class="tdrating">Score</th>
+        <th class="tdstatus">Status</th>
+        <th class="tdmore">More</th>
+        <th class="tdpath">Path</th>
       </tr>
     </thead>
     <tbody id="table">
-      <tr>
-        <td class="title">Title</td>
-        <td class="score">
+      <!-- <tr>
+        <td class="tdtitle"><p class="title">Title</p></td>
+        <td class="tdrating">
           <select class="rating">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -71,13 +73,20 @@
             <option value="10">10</option>
           </select>
         </td>
-        <td><select class="status">
-          <option value="">Finished</option>
-          <option value="">Watching</option>
-          <option value="">Plan to Watch</option>
-        </select></td>
-        <td class="more"><textarea rows="1" cols="10"></textarea></td>
-      </tr>
+        <td class="tdstatus">
+          <select class="status">
+          <option value="fin">Finished</option>
+          <option value="wat">Watching</option>
+          <option value="ptw">Plan to Watch</option>
+          </select>
+        </td>
+        <td class="tdmore">
+          <textarea class="more" rows="1" cols="10"></textarea>
+        </td>
+        <td class="tdpath">
+          <p class="path"></p>
+        </td>
+      </tr> -->
     </tbody>
   </table>
 </body>
