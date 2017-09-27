@@ -34,21 +34,21 @@
       color: white;
     }
 
-    .tdpath{
+    .tdpath, .tdid{
       display: none;
     }
   </style>
 </head>
 
 <body>
+  <!-- <button type="button" id=""></button> -->
   <button type="button" id="loadBtn">Load</button>
   <button type="button" id="saveBtn">Save</button>
   <button type="button" id="openBtn">Open</button>
-  <!-- <button type="button" id="openDialog">Open</button> -->
-  <!-- <button type="button"id="plsWork">WORK</button> -->
   <table>
     <thead>
       <tr>
+        <th class="tdid">ID</th>
         <th class="tdtitle">Name</th>
         <th class="tdrating">Score</th>
         <th class="tdstatus">Status</th>
@@ -58,6 +58,7 @@
     </thead>
     <tbody id="table">
       <!-- <tr>
+        <td class="tdid"><p class="id"></p></td>
         <td class="tdtitle"><p class="title">Title</p></td>
         <td class="tdrating">
           <select class="rating">
