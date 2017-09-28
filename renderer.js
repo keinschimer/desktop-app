@@ -48,6 +48,7 @@ function generateRow(fileName, myFile, i) {
 
 function saveDB() {
   // IDEA: Overrite already exsiteing items
+  var isInDb
   items = []
   // var id = document.getElementsByClassName('id')
   var path = document.getElementsByClassName('path')
@@ -60,7 +61,19 @@ function saveDB() {
     items.push(item);
   }
   console.log(items);
-  db.insert(items, function(err, doc) {})
+  db.find({}, function(err, docs) {
+    isInDb = docs
+    console.log(isInDb);
+    // if (isInDb != undefined) {
+      db.update(docs, items, function functionName() {
+        console.log('did it');
+      })
+    // } else {
+      // db.insert(items, function(err, doc) {})
+    // }
+  })
+  // console.log(isInDb);
+
 }
 
 function loadDB() {
