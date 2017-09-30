@@ -62,16 +62,17 @@ function saveDB() {// needs testing when loading is finished
 }
 
 function loadDB() { // IDEA: replace the alredy existing table {ez}
-  db.find({}, function(err, docs) {
-    // console.log(docs);
-    for (var i = 0; i < docs.length; i++) {
-      generateRow(docs[i].name, docs[i].path)
-      console.log(docs[i].score);
-      document.getElementsByClassName('rating')[i].value = docs[i].score
-      document.getElementsByClassName('status')[i].value = docs[i].status
-      document.getElementsByClassName('more')[i].value = docs[i].more
-    }
-  })
+db.find({}, function(err, docs) {
+  console.log(docs);
+  for (var i = 0; i < docs.length; i++) {
+    generateRow(docs[i].name, docs[i].path)
+    console.log(document.getElementsByClassName('rating')[i].value);
+    document.getElementsByClassName('rating')[i].value = docs[i].score
+    console.log(document.getElementsByClassName('rating')[i].value);
+    document.getElementsByClassName('status')[i].value = docs[i].status
+    document.getElementsByClassName('more')[i].value = docs[i].more
+  }
+})
 }
 
 function generateRow(fileName, myFile){ // IDEA: <option value="-">-</option>(load) //was to lazy to write that again for load
