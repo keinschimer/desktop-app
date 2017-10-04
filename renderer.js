@@ -10,21 +10,11 @@ const db = new Datastore({
   autoload: true
 });
 // TODO: fix after adding then to zero the shet
-// might be too Hard for me to fix (lazy)
 
 function openFilePicker() {
-  // TODO: check if file exists
-  //Works (i guess)
+  // TODO: look for Path not Name!! / only open vidoe types
+  //Kinda Works
   var myFile = dialog.showOpenDialog({
-    filters: [{
-        name: 'Videos',
-        extensions: ['mkv', 'avi', 'mp4']
-      },
-      {
-        name: 'All Files',
-        extensions: ['*']
-      }
-    ],
     properties: [
       'openFile', // on Windows/Linux only one
       'promtToCreate',
@@ -32,15 +22,15 @@ function openFilePicker() {
     ],
   })
   if (myFile != undefined) {
-    let pathCheck = document.getElementsByClassName('path')
+    var titles = document.getElementsByClassName('title')
     for (let i = 0; i < myFile.length; i++) {
       var isNameAvaliable = 0;
       var fileExt = path.extname(myFile[i])
       var fileName = path.basename(myFile[i], fileExt)
-      for (let j = 0; j < pathCheck.length; j++) {
-        if (pathCheck[j].innerText == myFile[i]) {
+      for (let i = 0; i < titles.length; i++) {
+        if (titles[i].innerText == fileName) {
           isNameAvaliable = 1
-          alert(fileName + ' with ' + myFile[i] + ' is already in the table')
+          alert(fileName + ' is already in the table')
         }
       }
       if (isNameAvaliable == 0) {
@@ -75,31 +65,27 @@ function saveDB() { // needs more testing
 
 function loadDB() {
   // TODO: replace the alredy existing entries
-  // TODO: check if file exists
+  var dbInner
   db.find({}, function(err, docs) {
-    console.log(docs);
+    dbInner = docs
     for (let i = 0; i < docs.length; i++) {
-      fs.stat(docs[i].path, function(err, stats) {
-        console.log(stats.isFile());
-        if (stats.isFile()) {
-          generateRow(docs[i].name, docs[i].path)
-        }
-      })
-    }
-    if (docs != undefined) {
-      for (let i = 0; i < docs.length; i++) {
-        document.getElementsByClassName('rating')[i].value = docs[i].score
-        document.getElementsByClassName('status')[i].value = docs[i].status
-        document.getElementsByClassName('more')[i].value = docs[i].more
-      }
-    } else {
-      alert('error, sorry :(')
+      generateRow(docs[i].name, docs[i].path)
     }
   })
+  setTimeout(function() {
+    insertValues(dbInner)
+  }, 1)
 }
 
-function generateRow(fileName, myFile) {
-  //was to lazy to write that again for load
+function insertValues(docs) {
+  for (let i = 0; i < docs.length; i++) {
+    document.getElementsByClassName('rating')[i].value = docs[i].score
+    document.getElementsByClassName('status')[i].value = docs[i].status
+    document.getElementsByClassName('more')[i].value = docs[i].more
+  }
+}
+
+function generateRow(fileName, myFile) { //was to lazy to write that again for load
   let output = '<tr><td class="tdtitle"><p class="title">' + fileName + '</p></td><td class="tdrating"><select class="rating"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></td><td class="tdstatus"><select class="status"><option value="fin">Finished</option><option value="wat">Watching</option><option value="ptw">Plan to Watch</option></select></td><td class="tdmore"><textarea class="more" rows="1" cols="10"></textarea></td><td class="tdpath"><p class="path">' + myFile + '</p></td></tr>'
   document.getElementById('table').innerHTML += output
 }
