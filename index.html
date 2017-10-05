@@ -32,9 +32,10 @@
       border-right: 1px #468847 solid;
       background-color: #4CAF50;
       color: white;
+      cursor: help;
     }
 
-    .tdpath, .tdid{
+    .tdpath{
       display: none;
     }
   </style>
@@ -45,15 +46,15 @@
   <button type="button" id="loadBtn">Load</button>
   <button type="button" id="saveBtn">Save</button>
   <button type="button" id="openBtn">Open</button>
-  <table>
+  <table id="wholeTable">
     <thead>
       <tr>
-        <th class="tdid">ID</th>
-        <th class="tdtitle">Name</th>
-        <th class="tdrating">Score</th>
-        <th class="tdstatus">Status</th>
-        <th class="tdmore">More</th>
-        <th class="tdpath">Path</th>
+        <th id="thtitle" class="tdtitle">Name</th>
+        <th id="thscore" class="tdrating">Score</th>
+        <th id="thstatus" class="tdstatus">Status</th>
+        <th id="thmore" class="tdmore">More</th>
+        <th id="thpath" class="tdpath">Path</th>
+        <!-- <th id="thid" class="tdid">ID</th> -->
       </tr>
     </thead>
     <tbody id="table">
