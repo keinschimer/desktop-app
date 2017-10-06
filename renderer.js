@@ -78,10 +78,12 @@ function loadDB() {
   db.find({}, function(err, docs) {
     for (let i = 0; i < docs.length; i++) {
       fs.stat(docs[i].path, function(err, stats) {
-        if (stats.isFile() && isInTable(docs[i].path)) {
-          console.log('yes');
+        if (stats.isFile()/* && isNotInTable(docs[i].path)*/) {
+          // console.log('yes');
           generateRow(docs[i].name, docs[i].path)
           sortTable(0)
+        }else {
+          alert('File ' + docs[i].path + ' is not valid!')
         }
       })
     }
@@ -105,11 +107,27 @@ function loadDB() {
   })
 }
 
-function isInTable(pathToCheck) {
+function isNotInTable(pathToCheck) {
+  // COMBAK:
+  console.clear()
   let path = document.getElementsByClassName('path')
-  if (true) {
-    console.log(path);
-    return true;
+  console.log(path.length);
+  console.log(pathToCheck);
+  if (path.length != 0) {
+    for (let l = 0; l < path.length; l++) {
+      console.log(path[l].innerText);
+      if (path[l].innerText == pathToCheck) {
+        alert()
+        console.log('found'+path[l].innerText);
+        return false;
+      } else {
+        console.log('1');
+        return true;
+      }
+    }
+  } else {
+    console.log('2');
+    return true
   }
 }
 
