@@ -75,47 +75,52 @@ function saveDB() { // needs more testing
 
 function loadDB() {
   // TODO: replace the alredy existing entries
-  // TODO: check if file exists
-  // FIXME: pls
   db.find({}, function(err, docs) {
-    console.log(docs);
     for (let i = 0; i < docs.length; i++) {
       fs.stat(docs[i].path, function(err, stats) {
-        console.log(stats.isFile());
-        if (stats.isFile()) {
+        if (stats.isFile() && isInTable(docs[i].path)) {
+          console.log('yes');
           generateRow(docs[i].name, docs[i].path)
+          sortTable(0)
         }
       })
     }
-    // TODO: (kill me) need to check for name/path then distribute the values
-    // sortTable(0)
     var valCount = 0
     while (valCount < 100) {
       setTimeout(function() {
         if (document.getElementsByClassName('rating').length == docs.length) {
           for (let i = 0; i < docs.length; i++) {
-            document.getElementsByClassName('rating')[i].value = docs[i].score
-            document.getElementsByClassName('status')[i].value = docs[i].status
-            document.getElementsByClassName('more')[i].value = docs[i].more
+            for (let j = 0; j < document.getElementsByClassName('title').length; j++) {
+              if (document.getElementsByClassName('title')[j].innerText == docs[i].name) {
+                document.getElementsByClassName('rating')[j].value = docs[i].score
+                document.getElementsByClassName('status')[j].value = docs[i].status
+                document.getElementsByClassName('more')[j].value = docs[i].more
+              }
+            }
           }
-          valCount = 100;
         }
-      }, 10)
+      }, 1)
       valCount++
     }
-    // }
   })
 }
 
+function isInTable(pathToCheck) {
+  let path = document.getElementsByClassName('path')
+  if (true) {
+    console.log(path);
+    return true;
+  }
+}
+
 //was to lazy to write that again for load
-function generateRow(fileName, myFile) {
-  let output = '<tr><td class="tdtitle"><p class="title">' + fileName + '</p></td><td class="tdrating"><select class="rating"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></td><td class="tdstatus"><select class="status"><option value="fin">Finished</option><option value="wat">Watching</option><option value="ptw">Plan to Watch</option></select></td><td class="tdmore"><textarea class="more" rows="1" cols="10"></textarea></td><td class="tdpath"><p class="path">' + myFile + '</p></td></tr>'
+function generateRow(fileName, filePath) {
+  let output = '<tr><td class="tdtitle"><p class="title">' + fileName + '</p></td><td class="tdrating"><select class="rating"><option value="-">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></td><td class="tdstatus"><select class="status"><option value="fin">Finished</option><option value="wat">Watching</option><option value="ptw">Plan to Watch</option></select></td><td class="tdmore"><textarea class="more" rows="1" cols="10"></textarea></td><td class="tdpath"><p class="path">' + filePath + '</p></td></tr>'
   document.getElementById('table').innerHTML += output
 }
 
 // riped out of w3schools
 function sortTable(n) {
-  console.log('fire!');
   let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("wholeTable");
   switching = true;
