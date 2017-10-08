@@ -197,3 +197,5 @@ loadBtn.onclick = loadDB
 // IDEA: rightklick in header to show/hide collums
 // IDEA: rework the menu/toolbar
 // IDEA: remove entry per rightklick ect.
+// IDEA: save the file under a diffrent path
+// IDEA: start video from app
