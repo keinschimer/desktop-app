@@ -1,6 +1,5 @@
-const Item = require('./files.js');
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 const Datastore = require('nedb')
 const {
   dialog
@@ -9,13 +8,19 @@ const db = new Datastore({
   filename: './file.db',
   autoload: true
 });
-// IDEA: fix after adding then to zero the shet
-// might be too Hard for me to fix (lazy)
+
+class Item {
+  constructor(path, name, score, status, more) {
+    this.path = path
+    this.name = name
+    this.score = score
+    this.status = status
+    this.more = more
+  }
+}
 
 function openFilePicker() {
-  // IDEA: check if file exists
-  //Works (i guess)
-  var myFile = dialog.showOpenDialog({
+  let myFile = dialog.showOpenDialog({
     filters: [{
         name: 'Videos',
         extensions: ['mkv', 'avi', 'mp4']
@@ -32,38 +37,34 @@ function openFilePicker() {
     ],
   })
   if (myFile != undefined) {
-    let pathCheck = document.getElementsByClassName('path')
+    // let pathCheck = document.getElementsByClassName('path')
     for (let i = 0; i < myFile.length; i++) {
-      var isNameAvaliable = 0;
-      var fileExt = path.extname(myFile[i])
-      var fileName = path.basename(myFile[i], fileExt)
-      for (let j = 0; j < pathCheck.length; j++) {
-        if (pathCheck[j].innerText == myFile[i]) {
-          isNameAvaliable = 1
+      fs.stat(myFile[i], function(err, stats) {
+        let fileExt = path.extname(myFile[i])
+        let fileName = path.basename(myFile[i], fileExt)
+        if (stats.isFile() && isNotInTable(myFile[i])) {
+          generateRow(fileName, myFile[i])
+        } else {
           alert(fileName + ' with ' + myFile[i] + ' is already in the table')
         }
-      }
-      if (isNameAvaliable == 0) {
-        generateRow(fileName, myFile[i])
-      }
+      })
     }
   }
 }
 
 function saveDB() { // needs more testing
-  var isInDb
+  let isInDb
   let items = []
-  // var id = document.getElementsByClassName('id')
-  var pfad = document.getElementsByClassName('path')
-  var title = document.getElementsByClassName('title')
-  var rating = document.getElementsByClassName('rating')
-  var status = document.getElementsByClassName('status')
-  var more = document.getElementsByClassName('more')
+  let pfad = document.getElementsByClassName('path')
+  let title = document.getElementsByClassName('title')
+  let rating = document.getElementsByClassName('rating')
+  let status = document.getElementsByClassName('status')
+  let more = document.getElementsByClassName('more')
   for (let i = 0; i < title.length; i++) {
     db.remove({
       path: pfad[i].innerText
     }, function(err, numRemoved) {
-      let item = new Item.Item(pfad[i].innerText, title[i].innerText, rating[i].value, status[i].value, more[i].value)
+      let item = new Item(pfad[i].innerText, title[i].innerText, rating[i].value, status[i].value, more[i].value)
       items.push(item);
       // console.log(item);
     })
@@ -74,60 +75,49 @@ function saveDB() { // needs more testing
 }
 
 function loadDB() {
-  // TODO: replace the alredy existing entries
   db.find({}, function(err, docs) {
     for (let i = 0; i < docs.length; i++) {
       fs.stat(docs[i].path, function(err, stats) {
-        if (stats.isFile()/* && isNotInTable(docs[i].path)*/) {
-          // console.log('yes');
+        if (stats.isFile() && isNotInTable(docs[i].path)) {
           generateRow(docs[i].name, docs[i].path)
           sortTable(0)
-        }else {
+        } else {
           alert('File ' + docs[i].path + ' is not valid!')
         }
       })
-    }
-    var valCount = 0
-    while (valCount < 100) {
-      setTimeout(function() {
-        if (document.getElementsByClassName('rating').length == docs.length) {
-          for (let i = 0; i < docs.length; i++) {
-            for (let j = 0; j < document.getElementsByClassName('title').length; j++) {
-              if (document.getElementsByClassName('title')[j].innerText == docs[i].name) {
-                document.getElementsByClassName('rating')[j].value = docs[i].score
-                document.getElementsByClassName('status')[j].value = docs[i].status
-                document.getElementsByClassName('more')[j].value = docs[i].more
+      for (let q = 0; q < 100; q++) {
+        setTimeout(function() {
+          if (document.getElementsByClassName('rating').length >= docs.length) {
+            for (let a = 0; a < docs.length; a++) {
+              for (let j = 0; j < document.getElementsByClassName('title').length; j++) {
+                if (document.getElementsByClassName('title')[j].innerText == docs[a].name) {
+                  document.getElementsByClassName('rating')[j].value = docs[a].score
+                  document.getElementsByClassName('status')[j].value = docs[a].status
+                  document.getElementsByClassName('more')[j].value = docs[a].more
+                }
               }
             }
           }
-        }
-      }, 1)
-      valCount++
+        }, 1)
+      }
     }
   })
 }
 
 function isNotInTable(pathToCheck) {
-  // COMBAK:
-  console.clear()
-  let path = document.getElementsByClassName('path')
-  console.log(path.length);
-  console.log(pathToCheck);
-  if (path.length != 0) {
-    for (let l = 0; l < path.length; l++) {
-      console.log(path[l].innerText);
-      if (path[l].innerText == pathToCheck) {
-        alert()
-        console.log('found'+path[l].innerText);
-        return false;
+  let reVal = false
+  let chPath = document.getElementsByClassName('path')
+  if (chPath.length == 0) {
+    return true
+  } else if (chPath.length > 0) {
+    for (let l = 0; l < chPath.length; l++) {
+      if (chPath[l].innerText == pathToCheck) {
+        return false
       } else {
-        console.log('1');
-        return true;
+        reVal = true
       }
     }
-  } else {
-    console.log('2');
-    return true
+    return reVal;
   }
 }
 
@@ -187,7 +177,7 @@ function sortTable(n) {
       set the direction to "desc" and run the while loop again.*/
       if (switchcount == 0 && dir == "asc") {
         dir = "desc";
-        switching = true;
+        switching = true
       }
     }
   }
@@ -201,3 +191,9 @@ thtitle.addEventListener('click', function() {
 openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
 loadBtn.onclick = loadDB
+
+// IDEA: contvert alert() => dialog.showMessageBox
+// IDEA: get Icon
+// IDEA: rightklick in header to show/hide collums
+// IDEA: rework the menu/toolbar
+// IDEA: remove entry per rightklick ect.

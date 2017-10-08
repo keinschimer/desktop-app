@@ -5,8 +5,6 @@
   <meta charset="utf-8">
   <title></title>
   <link rel="stylesheet" href="https://bootswatch.com/simplex/bootstrap.min.css">
-  <script>
-  </script>
   <style>
     table {
       border-collapse: collapse;
@@ -32,10 +30,14 @@
       border-right: 1px #468847 solid;
       background-color: #4CAF50;
       color: white;
-      cursor: help;
+      cursor: default;
     }
 
-    .tdpath{
+    .tdtitle {
+      cursor: pointer;
+    }
+
+    .tdpath {
       display: none;
     }
   </style>
@@ -72,7 +74,6 @@
 </body>
 <script>
   require('./renderer.js')
-  require('./files.js')
 </script>
 
 </html>

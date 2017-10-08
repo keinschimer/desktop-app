@@ -1,7 +1,7 @@
 const electron = require('electron')
 const app = electron.app
-const {dialog} = require('electron');
 const BrowserWindow = electron.BrowserWindow
+const {globalShortcut} = require('electron')
 
 let mainWindow
 
@@ -20,7 +20,10 @@ function createWindow() {
 
 app.on('ready', () => {
   createWindow()
-  // console.log(dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']}))
+  globalShortcut.register('CommandOrControl+O', () => {
+    console.log('ok');
+    // openFilePicker()
+  })
 })
 
 app.on('window-all-closed', function() {
