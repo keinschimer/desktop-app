@@ -199,3 +199,5 @@ loadBtn.onclick = loadDB
 // IDEA: remove entry per rightklick ect.
 // IDEA: save the file under a diffrent path
 // IDEA: start video from app
+// IDEA: auto load
+// IDEA: add Kinda done/ not legit done
