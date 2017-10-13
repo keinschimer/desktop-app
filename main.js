@@ -6,7 +6,12 @@ const {globalShortcut} = require('electron')
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 800, height: 600,/*autoHideMenuBar: true*/})
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    icon: './icon.png'
+    // autoHideMenuBar: true
+  })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
