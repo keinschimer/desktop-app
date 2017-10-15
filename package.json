@@ -1,15 +1,26 @@
 {
-  "name": "desktop-app",
-  "version": "0.1.0",
-  "description": "Testing",
+  "name": "electron-app",
+  "version": "0.1.1",
+  "description": "First electron app and stuff",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "author": "keinschimer",
   "license": "MIT",
   "dependencies": {
-    "electron": "^1.7.6",
+    "electron": "^1.8.1",
     "nedb": "^1.8.0"
-  }
+  },
+  "devDependencies": {
+    "electron-packager": "^9.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keinschimer/desktop-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/keinschimer/desktop-app/issues"
+  },
+  "homepage": "https://github.com/keinschimer/desktop-app#readme"
 }
