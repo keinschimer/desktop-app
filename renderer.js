@@ -9,8 +9,7 @@ const db = new Datastore({
   filename: './file.db',
   autoload: true
 });
-const os = require('os');
-console.log(os.userInfo());
+
 class Item {
   constructor(path, name, score, status, more) {
     this.path = path
@@ -206,13 +205,12 @@ if (true) { // want to do settings for autoLoad and such
 thtitle.addEventListener('click', function() {
   sortTable(0)
 })
-console.log(process);
+
 // TODO: put that shet in the toolbar
 openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
 loadBtn.onclick = loadDB
 
-// DONE: contvert alert() => dialog.showMessageBox
 // DONE: get Icon
 // IDEA: rightklick in header to show/hide collums
 // IDEA: rework the menu/toolbar

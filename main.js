@@ -2,17 +2,19 @@ const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const {globalShortcut} = require('electron')
-const child = require('child_process').execFile;
-let executablePath = "D:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
+const child = require('child_process').exec;
+// var executablePath = "D:/Anime/Shows/test%.mp3";
+const stuff = "D:/Anime/Shows/Inuyashiki/Inuyashiki - 01.mkv"
+var executablePath = `${stuff}`;
 // let parameters = [];
 let mainWindow
 
-// child(executablePath, parameters, function(err, data) {
-//   if (err) {
-//     console.log(err)
-//   }
-//   console.log(data.toString());
-// });
+child(executablePath, function(err, data) {
+  if (err) {
+    console.log(err)
+  }
+  console.log(data.toString());
+});
 
 function createWindow() {
   mainWindow = new BrowserWindow({
