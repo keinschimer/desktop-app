@@ -9,8 +9,7 @@ const db = new Datastore({
   filename: './file.db',
   autoload: true
 });
-const {systemPreferences} = require('electron').remote
-console.log(systemPreferences);
+
 class Item {
   constructor(path, name, score, status, more) {
     this.path = path
@@ -210,7 +209,6 @@ thtitle.addEventListener('click', function() {
 openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
 loadBtn.onclick = loadDB
-
 // DONE: get Icon
 // IDEA: rightklick in header to show/hide collums
 // IDEA: rework the menu/toolbar
