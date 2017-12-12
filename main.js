@@ -3,16 +3,17 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const {globalShortcut} = require('electron')
 const child = require('child_process').execFile;
-let executablePath = "D:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
+// let executablePath = "D:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
 // let parameters = [];
+let executablePath = "D:\\Anime\\Shows\\Kakegurui\\Kakegurui%20-%2001.mkv";
 let mainWindow
 
-// child(executablePath, parameters, function(err, data) {
-//   if (err) {
-//     console.log(err)
-//   }
-//   console.log(data.toString());
-// });
+child(executablePath, function(err, data) {//parameters,
+  if (err) {
+    console.log(err)
+  }
+  console.log(data.toString());
+});
 
 function createWindow() {
   mainWindow = new BrowserWindow({

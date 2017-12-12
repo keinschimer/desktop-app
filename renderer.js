@@ -9,8 +9,8 @@ const db = new Datastore({
   filename: './file.db',
   autoload: true
 });
-const os = require('os');
-console.log(os.userInfo());
+const {systemPreferences} = require('electron').remote
+console.log(systemPreferences);
 class Item {
   constructor(path, name, score, status, more) {
     this.path = path
@@ -135,7 +135,6 @@ function saveDB() { // needs more testing
     }, function(err, numRemoved) {
       let item = new Item(pfad[i].innerText, title[i].innerText, rating[i].value, status[i].value, more[i].value)
       items.push(item);
-      // console.log(item);
     })
   }
   db.insert(items, function(err, doc) {
@@ -206,7 +205,7 @@ if (true) { // want to do settings for autoLoad and such
 thtitle.addEventListener('click', function() {
   sortTable(0)
 })
-console.log(process);
+
 // TODO: put that shet in the toolbar
 openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
