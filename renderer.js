@@ -211,7 +211,6 @@ openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
 loadBtn.onclick = loadDB
 
-// DONE: contvert alert() => dialog.showMessageBox
 // DONE: get Icon
 // IDEA: rightklick in header to show/hide collums
 // IDEA: rework the menu/toolbar
