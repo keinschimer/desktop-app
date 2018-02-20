@@ -2,13 +2,18 @@ var alertCount = []
 const path = require('path')
 const fs = require('fs')
 const Datastore = require('nedb')
-const {
-  dialog
-} = require('electron').remote
-const db = new Datastore({
-  filename: './file.db',
-  autoload: true
-});
+const {dialog} = require('electron').remote
+const db = new Datastore({filename: './file.db',autoload: true});
+const {ipcRenderer} = require('electron')
+
+console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
+
+ipcRenderer.on('asynchronous-reply', (event, arg) => {
+  console.log(arg) // prints "pong"
+  console.log(event);
+})
+ipcRenderer.send('asynchronous-message', 'ping')
+
 
 class Item {
   constructor(path, name, score, status, more) {
@@ -197,6 +202,10 @@ function sortTable(n) {
   }
 }
 
+function testtt() {
+  console.log("his");
+}
+
 if (true) { // want to do settings for autoLoad and such
   loadDB()
 }
@@ -209,6 +218,7 @@ thtitle.addEventListener('click', function() {
 openBtn.onclick = openFilePicker
 saveBtn.onclick = saveDB
 loadBtn.onclick = loadDB
+testBtn.onclick = testtt
 // DONE: get Icon
 // IDEA: rightklick in header to show/hide collums
 // IDEA: rework the menu/toolbar

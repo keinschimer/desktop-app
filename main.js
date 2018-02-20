@@ -2,6 +2,7 @@ const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const {globalShortcut} = require('electron')
+const {ipcMain} = require('electron')
 const child = require('child_process').exec;
 // let executablePath = '"D:\\Anime\\Shows\\Kakegurui\\Kakegurui - 01.mkv"';
 // this works with .exec
@@ -11,20 +12,39 @@ const child = require('child_process').exec;
 // let reg = /\\/g
 // let rep = "\\\\"
 // let testpath = str.replace(reg,rep)
-
-let str = "D:\Anime\Shows\Kakegurui\Kakegurui - 05.mkv"
-let testpath = str.replace(/\\/g,"\\\\")
-var temp = "'"+testpath+"'"
-console.log(temp);
-let executablePath = temp//'"D:\\Anime\\Shows\\Kakegurui\\Kakegurui - 01.mkv"';
 let mainWindow
 
-child(executablePath, function(err, data) {//parameters,
-  if (err) {
-    console.log(err)
-  }
-  console.log(data.toString());
-});
+
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.returnValue = 'pong'
+})
+
+
+
+
+function palceholder() {
+  let str = "D:\Anime\Shows\Kakegurui\Kakegurui - 05.mkv"
+  console.log(str);
+  let testpath = str.replace(/\\/g,"\\\\")
+  var temp = "'"+testpath+"'"
+  console.log(temp);
+}
+function testt() {
+  let executablePath = temp//'"D:\\Anime\\Shows\\Kakegurui\\Kakegurui - 01.mkv"';
+  child(executablePath, function(err, data) {//parameters,
+    if (err) {
+      console.log(err)
+    }
+    console.log(data.toString());
+  });
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
